@@ -1,0 +1,4 @@
+.draggabe {
+  user-select: none;
+  position: absolute;
+}
