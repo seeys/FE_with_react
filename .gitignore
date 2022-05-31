@@ -1,3 +1,6 @@
 /js_kakaomap/node_modules
 /js_mouse/node_modules
 /js_musicplayer/node_modules
+/js_picture/.parcel-cache
+/js_picture/dist
+/js_picture/node_modules
