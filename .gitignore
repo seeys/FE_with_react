@@ -5,3 +5,5 @@
 /js_picture/dist
 /js_picture/node_modules
 /js_sortable/node_modules
+/js_todolist/node_modules
+/js_todolist/dist
