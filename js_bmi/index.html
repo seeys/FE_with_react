@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>JS CAL</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <form
+      onsubmit="onSubmit(event)"
+      onreset="document.getElementById('res').style.display='none'"
+    >
+      <div class="row">
+        <div class="form-inp">
+          <label for="w">몸무게(kg)</label>
+          <input
+            class="inp"
+            type="number"
+            placeholder="kg"
+            name="w"
+            id="w"
+            min="20"
+            max="200"
+          />
+        </div>
+        <div class="form-inp">
+          <label for="h">신장(m)</label>
+          <input
+            class="inp"
+            type="number"
+            step="0.01"
+            placeholder="m"
+            name="h"
+            id="h"
+          />
+        </div>
+        <button type="submit" class="btn">결과</button>
+      </div>
+      <div id="res">
+        <div>
+          <meter
+            style="width: 100%"
+            min="10"
+            max="40"
+            optimum="22"
+            low="18.5"
+            high="25"
+            id="meter"
+          ></meter>
+        </div>
+        <div class="res-text">
+          <div>당신의 bmi는 <span id="bmi"></span></div>
+
+          <div><span id="state"></span>입니다.</div>
+        </div>
+        <div style="text-align: center">
+          <button type="reset" class="btn">초기화</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
