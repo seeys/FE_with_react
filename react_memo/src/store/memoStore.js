@@ -1,10 +1,9 @@
-import { v1 as uuidv1 } from "uuid";
 import { action, autorun, makeObservable, observable } from "mobx";
-import { width } from "@mui/system";
+import { v1 as uuidv1 } from "uuid";
 
 export class MemoModel {
   id = uuidv1();
-  content = "";
+  content = "hi";
   x = 0;
   y = 0;
   width = 250;
@@ -34,6 +33,7 @@ export default class MemoStore {
       removeMemo: action,
       loadLocalStorage: action,
     });
+
     this.initLocalStorage();
 
     autorun(() => {
@@ -42,31 +42,36 @@ export default class MemoStore {
       }
     });
   }
-
   addMemo() {
     this.memos.push(new MemoModel());
   }
+
   editMemo(id, content) {
     this.memos[this.getMemoIndex(id)].content = content;
   }
+
   getMemoIndex(id) {
     return this.memos.findIndex((memo) => memo.id === id);
   }
+
   setWidthHeight(id, width, height) {
-    const idx = this.getMemoIndex(id);
-    this.memos[idx].width = width;
-    this.memos[idx].height = height;
+    const index = this.getMemoIndex(id);
+    this.memos[index].width = width;
+    this.memos[index].height = height;
   }
+
   setPosition(id, x, y) {
-    const idx = this.getMemoIndex(id);
-    this.memos[idx].x = x;
-    this.memos[idx].y = y;
+    const index = this.getMemoIndex(id);
+    this.memos[index].x = x;
+    this.memos[index].y = y;
   }
+
   removeMemo(id) {
     this.memos.splice(this.getMemoIndex(id), 1);
   }
+
   initLocalStorage() {
-    if (window.localStorage[this.id] === null) {
+    if (window.localStorage[this.id] == null) {
       this.localStorage = window.localStorage;
       this.localStorage.setItem(this.id, JSON.stringify(this.memos.shift()));
     } else {
@@ -74,6 +79,7 @@ export default class MemoStore {
       this.loadLocalStorage();
     }
   }
+
   loadLocalStorage() {
     this.memos = JSON.parse(this.localStorage.getItem(this.id));
   }
