@@ -71,4 +71,4 @@ function TimeTableCell({ day, timeNum, Edit }) {
   );
 }
 
-export default TimeTableCell;
+export default memo(TimeTableCell);
