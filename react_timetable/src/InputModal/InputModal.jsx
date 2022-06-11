@@ -46,10 +46,113 @@ function InputModal({
   const [timeTableData, settimeTableData] = useRecoilState(timeTableState);
 
   //handler
-  useEffect();
+  useEffect(() => {
+    if (showModal) {
+      reset({
+        lectureName: lectureNameData,
+        day: dayData,
+        startTime: startTimeData,
+        endTime: endTimeData,
+        lectureColor: colorData,
+      });
+    }
+  }, [
+    showModal,
+    reset,
+    dayData,
+    startTimeData,
+    endTimeData,
+    lectureNameData,
+    colorData,
+  ]);
 
-  const Submit = useCallback();
-  const Edit = useCallback();
+  const Submit = useCallback(
+    ({ lectureName, day, startTime, endTime, lectureColor }) => {
+      let valid = true;
+      for (let index = 0; index < timeTableData[day].length; index++) {
+        if (
+          checkOverLap(timeTableData[day][index], {
+            start: startTime,
+            end: endTime,
+          })
+        ) {
+          valid = false;
+          break;
+        }
+      }
+
+      if (!valid) {
+        alert("해당 시간에 강의가 이미 존재합니다.");
+        return;
+      }
+
+      const data = {
+        start: startTime,
+        end: endTime,
+        name: lectureName,
+        color: lectureColor,
+        id: uuidv1(),
+      };
+
+      settimeTableData((oldTimeData) => ({
+        ...oldTimeData,
+        [day]: [...oldTimeData[day], data],
+      }));
+
+      handleClose();
+    },
+    [timeTableData, settimeTableData, handleClose]
+  );
+  const Edit = useCallback(
+    ({ lectureName, day, startTime, endTime, lectureColor }) => {
+      let valid = true;
+      for (let index = 0; index < timeTableData[day].length; index++) {
+        if (
+          checkOverLap(timeTableData[day][index], {
+            start: startTime,
+            end: endTime,
+          }) &&
+          timeTableData[day][index]["id"] !== idNum
+        ) {
+          valid = false;
+          break;
+        }
+      }
+
+      if (!valid) {
+        alert("해당 시간에 강의가 이미 존재합니다.");
+        return;
+      }
+
+      const filteredDayData = [
+        ...timeTableData[dayData].filter((data) => data.id !== idNum),
+      ];
+
+      const newTimeTableData = {
+        ...timeTableData,
+        [dayData]: filteredDayData,
+      };
+
+      const newDayData = [
+        ...newTimeTableData[day],
+        {
+          start: startTime,
+          end: endTime,
+          id: idNum,
+          name: lectureName,
+          color: lectureColor,
+        },
+      ];
+
+      settimeTableData({
+        ...newTimeTableData,
+        [day]: newDayData,
+      });
+
+      handleClose();
+    },
+    [dayData, handleClose, idNum, settimeTableData, timeTableData]
+  );
   return (
     <Dialog open={showModal} onClose={handleClose}>
       <form onSubmit={handleSubmit(idNum ? Edit : Submit)}>
