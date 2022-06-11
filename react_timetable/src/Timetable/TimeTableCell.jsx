@@ -5,13 +5,10 @@ import { timeTableState } from "../store/store";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
-
 function TimeTableCell({ day, timeNum, Edit }) {
   const [timeTableData, settimeTableData] = useRecoilState(timeTableState);
   const [hover, sethover] = useState(false);
   const [open, setopen] = useState(false);
-
-  // handler
   const timeData = useMemo(
     () =>
       timeTableData[day].find(
@@ -37,7 +34,6 @@ function TimeTableCell({ day, timeNum, Edit }) {
     () => Edit(day, timeData.id),
     [Edit, day, timeData?.id]
   );
-
   return (
     <>
       {timeData?.start === timeNum ? (

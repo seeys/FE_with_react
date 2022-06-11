@@ -45,7 +45,6 @@ function InputModal({
   } = useForm();
   const [timeTableData, settimeTableData] = useRecoilState(timeTableState);
 
-  //handler
   useEffect(() => {
     if (showModal) {
       reset({
@@ -103,6 +102,7 @@ function InputModal({
     },
     [timeTableData, settimeTableData, handleClose]
   );
+
   const Edit = useCallback(
     ({ lectureName, day, startTime, endTime, lectureColor }) => {
       let valid = true;
@@ -153,10 +153,11 @@ function InputModal({
     },
     [dayData, handleClose, idNum, settimeTableData, timeTableData]
   );
+
   return (
     <Dialog open={showModal} onClose={handleClose}>
       <form onSubmit={handleSubmit(idNum ? Edit : Submit)}>
-        <DialogTitle>강의정보입력</DialogTitle>
+        <DialogTitle>강의정보 입력</DialogTitle>
         <DialogContent style={{ width: "400px" }}>
           <Controller
             control={control}
@@ -172,14 +173,15 @@ function InputModal({
               />
             )}
           />
-          {errors.lectureNameData?.type === "required" && (
-            <p style={{ color: "#d32f2f" }}>강의명을 입력해주세요</p>
+          {errors.lectureName?.type === "required" && (
+            <p style={{ color: "#d32f2f" }}>강의명을 입력해주세요.</p>
           )}
+
           <FormControl style={{ marginTop: "30px" }}>
             <FormLabel>요일</FormLabel>
             <Controller
               control={control}
-              name="lectureName"
+              name="day"
               rules={{ required: true }}
               render={({ field }) => (
                 <RadioGroup {...field} style={{ display: "block" }}>
@@ -240,6 +242,7 @@ function InputModal({
             {errors.startTime?.type === "required" && (
               <p style={{ color: "#d32f2f" }}>강의 시작 시간 선택</p>
             )}
+
             <Controller
               control={control}
               name="endTime"
@@ -247,7 +250,7 @@ function InputModal({
                 required: true,
                 validate: (value) => getValues("startTime") < value,
               }}
-              ender={({ field }) => (
+              render={({ field }) => (
                 <TextField
                   {...field}
                   select
@@ -273,7 +276,21 @@ function InputModal({
               </p>
             )}
           </Stack>
-          <div></div>
+          <div style={{ marginTop: "30px" }}>
+            <label htmlFor="lectureColor">시간표 색상:</label>
+            <Controller
+              control={control}
+              name="lectureColor"
+              render={({ field }) => (
+                <input
+                  {...field}
+                  style={{ marginLeft: "30px" }}
+                  id="lectureColor"
+                  type="color"
+                />
+              )}
+            />
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>

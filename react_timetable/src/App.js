@@ -1,4 +1,3 @@
-import "./App.css";
 import TimeTable from "./Timetable/TimeTable";
 
 function App() {

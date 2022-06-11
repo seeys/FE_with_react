@@ -15,12 +15,11 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import InputModal from "../InputModal/InputModal";
 import { useRecoilValue } from "recoil";
 import { timeTableState } from "../store/store";
-
 const hourData = Array.from({ length: 11 }, (i, j) => j + 9);
 const styles = () => ({
   Table: {
-    "& th, td": {
-      border: "1px solid rgba(224,224,224,1)",
+    "& th,td": {
+      border: "1px solid rgba(224, 224, 224, 1)",
     },
   },
 });
@@ -29,12 +28,11 @@ function TimeTable({ classes }) {
   const timeTableData = useRecoilValue(timeTableState);
   const [showModal, setshowModal] = useState(false);
   const [editInfo, seteditInfo] = useState({});
-
-  //handler
   const handleClose = useCallback(() => {
     setshowModal(false);
     seteditInfo({});
   }, []);
+
   const Edit = useCallback(
     (day, id) => {
       const { start, end, name, color } = timeTableData[day].find(
@@ -52,7 +50,6 @@ function TimeTable({ classes }) {
     },
     [timeTableData]
   );
-
   return (
     <>
       <TableContainer
@@ -73,7 +70,7 @@ function TimeTable({ classes }) {
           endIcon={<AddBoxIcon />}
           onClick={() => setshowModal(true)}
         >
-          강의입력
+          강의 입력
         </Button>
         <Table className={classes.Table}>
           <TableHead>
@@ -101,9 +98,9 @@ function TimeTable({ classes }) {
           <TableBody>
             {hourData.map((time, index) => (
               <TableRow key={index}>
-                <TableCell align="center">
-                  {`${time}:00-${time + 1}:00`}
-                </TableCell>
+                <TableCell align="center">{`${time}:00 - ${
+                  time + 1
+                }:00`}</TableCell>
                 <TimeTableRow timeNum={time} Edit={Edit} />
               </TableRow>
             ))}
@@ -119,4 +116,4 @@ function TimeTable({ classes }) {
   );
 }
 
-export default TimeTable;
+export default withStyles(styles)(TimeTable);
