@@ -3,6 +3,9 @@ import { useContext } from "react";
 import { WeatherContext } from "../WeatherProvider/WeatherProvider";
 import { WiHumidity, WiStrongWind, WiSunrise, WiSunset } from "react-icons/wi";
 
+// 풍향 각도에 따라서 결정된다.
+// 0도 ~ 360도를 동서남북, 북동, 남동, 남서, 북서 8가지로 나눔
+// 360 / 8 => 45도 간격으로
 function WindDirectionText({ degree = 0 }) {
   switch (true) {
     case (337.5 <= degree && degree <= 360) || (0 <= degree && degree < 22.5):
@@ -26,6 +29,9 @@ function WindDirectionText({ degree = 0 }) {
   }
 }
 
+// 일출, 일몰, 습도, 바람 데이터
+// useContext를 이용해서 정보를 가져온다.
+// sunrise, sunset이 초 단위이기 때문에 * 1000
 function ExtraInfo() {
   const { humidity, speed, deg, sunset, sunrise } = useContext(WeatherContext);
   return (
@@ -55,7 +61,7 @@ function ExtraInfo() {
         </p>
       </div>
       <div className="extra-info-item">
-        <WiHumidity style={{ fontSize: "50px", color: "#ff7500" }} />
+        <WiHumidity style={{ fontSize: "50px", color: "#0095ff" }} />
         <p className="extra-info-text">
           {`${humidity}%`}
           <br />
@@ -63,7 +69,7 @@ function ExtraInfo() {
         </p>
       </div>
       <div className="extra-info-item">
-        <WiStrongWind style={{ fontSize: "50px", color: "#ff7500" }} />
+        <WiStrongWind style={{ fontSize: "50px", color: "#2bc7ad" }} />
         <p className="extra-info-text">
           {`${speed}m/s`}(<WindDirectionText degree={deg} />)
           <br />
