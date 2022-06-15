@@ -6,6 +6,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import WindGraph from "../WindGraph/WindGraph";
 
+// Weather 탭을 material tab 컴포넌트로 이용하여 구현
+
+// 탭 패널들 날씨, 습도, 바람 그래프
+// value는 현재 인덱스 아이템 인덱스를 비교
 function TabPanel({ children, value, index }) {
   return (
     <div hidden={value !== index}>
@@ -14,6 +18,8 @@ function TabPanel({ children, value, index }) {
   );
 }
 
+// 탭이 몇번째 인덱스에 있는지를 state를 이용해서 설정한다.
+// variant = fullWidth는 탭 창에서 넓이를 가득차게
 function WeatherTab() {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
