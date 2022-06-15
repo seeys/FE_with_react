@@ -9,6 +9,9 @@ import {
   WiDaySnow,
   WiNa,
 } from "react-icons/wi";
+
+// weatherState를 보고 날씨상태에 따라 아이콘을 설정해주기 위한 파일
+// 다른 설정들이 있으면 props로 받음 (크기, 위치 등등)
 function CurrentWeatherIcon({ weatherState, ...props }) {
   switch (weatherState) {
     case "Thunderstorm":
