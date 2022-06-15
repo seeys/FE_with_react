@@ -10,7 +10,7 @@ function WeatherProvider({ children }) {
 
   const getWeatherInfo = async () => {
     try {
-      const currentWeatherInfoAPI = ``;
+      const currentWeatherInfoAPI = `https://api.openweathermap.org/data/2.5/weather?appid=${APIKEY}&q=seoul&units=metric`;
       const currentWeatherInfo = await fetch(currentWeatherInfoAPI);
       const {
         name,
@@ -20,7 +20,7 @@ function WeatherProvider({ children }) {
         weather: [{ main: weatherState }],
         wind: { speed, deg },
       } = await currentWeatherInfo.json();
-      const hourlyWeatherInfoAPI = ``;
+      const hourlyWeatherInfoAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,daily&appid=${APIKEY}&units=metric`;
       const hourlyWeatherInfo = await fetch(hourlyWeatherInfoAPI);
       const { hourly } = await hourlyWeatherInfo.json();
       setWeatherInfo({
