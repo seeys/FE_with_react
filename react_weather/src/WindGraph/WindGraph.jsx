@@ -15,6 +15,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 
 const formatXAxis = (data) => `${new Date(data * 1000).getHours()}시`;
+
+// 화살표로 풍향을 표시해줌
 function WindDirection({ degree, ...props }) {
   switch (true) {
     case (337.5 <= degree && degree <= 360) || (0 <= degree && degree < 22.5):
@@ -38,6 +40,7 @@ function WindDirection({ degree, ...props }) {
   }
 }
 
+// 풍향 컴포넌트를 감싸주는 얘
 const CustomizedContent = function ({ x, y, value }) {
   return <WindDirection degree={value} x={x + 15} y={y - 40} fontSize={30} />;
 };
