@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 
+// number형으로 받기
 const StyledNumberBox = styled.select<{
   num: number;
 }>`
